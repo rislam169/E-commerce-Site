@@ -34,4 +34,55 @@ class Category
             }
         }
     }
+
+    public function getCategory()
+    {
+        $query = "SELECT * FROM tbl_category ORDER BY catID DESC";
+        $getcat = $this->db->insert($query);
+        return $getcat;
+    }
+
+    public function getCategoryById($catid)
+    {
+        $query = "SELECT * FROM tbl_category WHERE catId = '$catid'";
+        $getcat = $this->db->insert($query);
+        return $getcat;
+    }
+
+    public function updateCategory($catName, $catid)
+    {
+        $catName = $this->fm->validation($catName);
+        $catName = mysqli_real_escape_string($this->db->link, $catName);
+        $catid = mysqli_real_escape_string($this->db->link, $catid);
+
+        if (empty($catName)) {
+            $msg = "<span class='error'>Category field must not be empty</span>";
+            return $msg;
+        } else {
+            $query = "UPDATE tbl_category
+                        SET catName = '$catName'
+                        WHERE catId = '$catid'";
+            $catupdate = $this->db->update($query);
+            if ($catupdate) {
+                $msg = "<span class='success'>Category Updated Successfully!!</span>";
+                return $msg;
+            } else {
+                $msg = "<span class='error'>Category Not Updated!!</span>";
+                return $msg;
+            }
+        }
+    }
+
+    public function deleteCategoryById($delcatid)
+    {
+        $query = "DELETE FROM tbl_category WHERE catId = '$delcatid'";
+        $delcat = $this->db->delete($query);
+        if ($delcat) {
+            $msg = "<span class='success'>Category Deleted Successfully!!</span>";
+            return $msg;
+        } else {
+            $msg = "<span class='error'>Category Not Deleted!!</span>";
+            return $msg;
+        }
+    }
 }
