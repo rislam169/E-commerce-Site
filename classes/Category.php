@@ -37,7 +37,7 @@ class Category
 
     public function getCategory()
     {
-        $query = "SELECT * FROM tbl_category ORDER BY catID DESC";
+        $query = "SELECT * FROM tbl_category ORDER BY catId DESC";
         $getcat = $this->db->insert($query);
         return $getcat;
     }

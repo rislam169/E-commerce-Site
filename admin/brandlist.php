@@ -1,42 +1,42 @@
-﻿<?php include 'inc/header.php';?>
+<?php include 'inc/header.php';?>
 <?php include 'inc/sidebar.php';?>
 <?php
-include '../classes/Category.php';
-$cat = new Category();
-if (isset($_GET['delcatid'])) {
-    $delcatid = $_GET['delcatid'];
-    $delcat = $cat->deleteCategoryById($delcatid);
+include '../classes/Brand.php';
+$br = new Brand();
+if (isset($_GET['delbrandid'])) {
+    $delbrandid = $_GET['delbrandid'];
+    $delbrand = $br->deleteBrandById($delbrandid);
 }
 ?>
         <div class="grid_10">
             <div class="box round first grid">
-                <h2>Category List</h2>
+                <h2>Brand List</h2>
                 <div class="block">
 	<?php
-if (isset($delcat)) {
-    echo $delcat;
+if (isset($delbrand)) {
+    echo $delbrand;
 }
 ?>
                     <table class="data display datatable" id="example">
 					<thead>
 						<tr>
 							<th>Serial No.</th>
-							<th>Category Name</th>
+							<th>Brand Name</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 <?php
-$getcat = $cat->getCategory();
-if ($getcat) {
+$getbrand = $br->getBrand();
+if ($getbrand) {
     $i = 0;
-    while ($result = $getcat->fetch_assoc()) {
+    while ($result = $getbrand->fetch_assoc()) {
         $i++;
         ?>
 						<tr class="odd gradeX">
 							<td><?php echo $i; ?></td>
-							<td><?php echo $result['catName']; ?></td>
-							<td><a href="catedit.php?catid=<?php echo $result['catId']; ?>">Edit</a> || <a onclick="return confirm('Are you sure to delete?')" href="?delcatid=<?php echo $result['catId']; ?>">Delete</a></td>
+							<td><?php echo $result['brandName']; ?></td>
+							<td><a href="brandedit.php?brandid=<?php echo $result['brandId']; ?>">Edit</a> || <a onclick="return confirm('Are you sure to delete?')" href="?delbrandid=<?php echo $result['brandId']; ?>">Delete</a></td>
 						</tr>
 <?php }}?>
 					</tbody>
