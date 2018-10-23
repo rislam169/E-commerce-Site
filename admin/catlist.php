@@ -4,7 +4,8 @@
 include '../classes/Category.php';
 $cat = new Category();
 if (isset($_GET['delcatid'])) {
-    $delcatid = $_GET['delcatid'];
+	$delcatid = $_GET['delcatid'];
+	$delcatid = mysqli_real_escape_string($this->db->link, $delcatid);
     $delcat = $cat->deleteCategoryById($delcatid);
 }
 ?>
