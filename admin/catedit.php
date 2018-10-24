@@ -43,7 +43,7 @@ if (isset($getcat)) {
                         </tr>
                     </table>
                     </form>
-    <?php }?>
+    <?php } else {echo "<span class='error'>There is no such product</span>";}?>
                 </div>
             </div>
         </div>

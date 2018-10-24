@@ -526,6 +526,10 @@ input.warning {
 	border-bottom: 1px solid #c6d880;
 }
 
+.datatable tr td {
+	border-right: .1px dashed #ddd !important;
+}
+
 span.error {
 	margin: 8px 0 0 0;
 	padding: 0;
