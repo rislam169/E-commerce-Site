@@ -11,6 +11,7 @@ spl_autoload_register(function ($class) {
 $db = new Database();
 $fm = new Format();
 $pd = new Product();
+$cat = new Category();
 $ct = new Cart();
 ?>
 <?php

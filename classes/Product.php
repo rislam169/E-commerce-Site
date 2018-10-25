@@ -158,13 +158,21 @@ class Product
     public function getProductById($productid)
     {
         $query = "SELECT * FROM tbl_product WHERE productId = '$productid'";
-        $getproduct = $this->db->insert($query);
+        $getproduct = $this->db->select($query);
         return $getproduct;
     }
+
+    public function getProductByCategoryId($catid)
+    {
+        $query = "SELECT * FROM tbl_product WHERE catId = '$catid'";
+        $getproduct = $this->db->select($query);
+        return $getproduct;
+    }
+
     public function deleteProductById($delproductid)
     {
         $query = "SELECT * FROM tbl_product WHERE productId = '$delproductid'";
-        $getproduct = $this->db->insert($query);
+        $getproduct = $this->db->select($query);
         if ($getproduct) {
             while ($result = $getproduct->fetch_assoc()) {
                 $dellink = $result['image'];
@@ -208,6 +216,34 @@ class Product
         } else {
             return false;
         }
+    }
+
+    public function getLatestFromIphone()
+    {
+        $query = "SELECT * FROM tbl_product WHERE brandId = 4 ORDER BY productId DESC LIMIT 1";
+        $getproduct = $this->db->insert($query);
+        return $getproduct;
+    }
+
+    public function getLatestFromSamsung()
+    {
+        $query = "SELECT * FROM tbl_product WHERE brandId = 2 ORDER BY productId DESC LIMIT 1";
+        $getproduct = $this->db->insert($query);
+        return $getproduct;
+    }
+
+    public function getLatestFromCanon()
+    {
+        $query = "SELECT * FROM tbl_product WHERE brandId = 3 ORDER BY productId DESC LIMIT 1";
+        $getproduct = $this->db->insert($query);
+        return $getproduct;
+    }
+
+    public function getLatestFromAcer()
+    {
+        $query = "SELECT * FROM tbl_product WHERE brandId = 1 ORDER BY productId DESC LIMIT 1";
+        $getproduct = $this->db->insert($query);
+        return $getproduct;
     }
 
 }
