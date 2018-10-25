@@ -189,4 +189,25 @@ class Product
         $getproduct = $this->db->insert($query);
         return $getproduct;
     }
+
+    public function getNewProduct()
+    {
+        $query = "SELECT * FROM tbl_product ORDER BY productId DESC LIMIT 4";
+        $getproduct = $this->db->insert($query);
+        return $getproduct;
+    }
+
+    public function getSingleProductById($proid)
+    {
+        $query = "SELECT p.*, c.catName, b.brandName
+                FROM tbl_product as p, tbl_category as c, tbl_brand as b
+                WHERE p.catId = c.catId AND p.brandId = b.brandId AND p.productId = '$proid'";
+        $result = $this->db->select($query);
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
 }
