@@ -1,6 +1,7 @@
 <?php
-include_once '../helpers/Format.php';
-include_once '../lib/Database.php';
+$filepath = realpath(dirname(__FILE__));
+include_once $filepath . '/../helpers/Format.php';
+include_once $filepath . '/../lib/Database.php';
 ?>
 <?php
 class Product
@@ -164,9 +165,9 @@ class Product
     {
         $query = "SELECT * FROM tbl_product WHERE productId = '$delproductid'";
         $getproduct = $this->db->insert($query);
-        if($getproduct){
-            while($result = $getproduct->fetch_assoc()){
-                $dellink = $result['image']; 
+        if ($getproduct) {
+            while ($result = $getproduct->fetch_assoc()) {
+                $dellink = $result['image'];
                 unlink($dellink);
             }
         }
@@ -180,5 +181,12 @@ class Product
             $msg = "<span class='error'>Product Not Deleted!!</span>";
             return $msg;
         }
+    }
+
+    public function getFeaturedProduct()
+    {
+        $query = "SELECT * FROM tbl_product WHERE type = 0 ORDER BY RAND() LIMIT 4";
+        $getproduct = $this->db->insert($query);
+        return $getproduct;
     }
 }
