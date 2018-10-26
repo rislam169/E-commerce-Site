@@ -194,14 +194,14 @@ class Product
     public function getFeaturedProduct()
     {
         $query = "SELECT * FROM tbl_product WHERE type = 0 ORDER BY RAND() LIMIT 4";
-        $getproduct = $this->db->insert($query);
+        $getproduct = $this->db->select($query);
         return $getproduct;
     }
 
     public function getNewProduct()
     {
         $query = "SELECT * FROM tbl_product ORDER BY productId DESC LIMIT 4";
-        $getproduct = $this->db->insert($query);
+        $getproduct = $this->db->select($query);
         return $getproduct;
     }
 
@@ -221,28 +221,28 @@ class Product
     public function getLatestFromIphone()
     {
         $query = "SELECT * FROM tbl_product WHERE brandId = 4 ORDER BY productId DESC LIMIT 1";
-        $getproduct = $this->db->insert($query);
+        $getproduct = $this->db->select($query);
         return $getproduct;
     }
 
     public function getLatestFromSamsung()
     {
         $query = "SELECT * FROM tbl_product WHERE brandId = 2 ORDER BY productId DESC LIMIT 1";
-        $getproduct = $this->db->insert($query);
+        $getproduct = $this->db->select($query);
         return $getproduct;
     }
 
     public function getLatestFromCanon()
     {
         $query = "SELECT * FROM tbl_product WHERE brandId = 3 ORDER BY productId DESC LIMIT 1";
-        $getproduct = $this->db->insert($query);
+        $getproduct = $this->db->select($query);
         return $getproduct;
     }
 
     public function getLatestFromAcer()
     {
         $query = "SELECT * FROM tbl_product WHERE brandId = 1 ORDER BY productId DESC LIMIT 1";
-        $getproduct = $this->db->insert($query);
+        $getproduct = $this->db->select($query);
         return $getproduct;
     }
 
