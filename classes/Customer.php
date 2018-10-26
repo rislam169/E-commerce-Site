@@ -56,4 +56,30 @@ class Customer
             }
         }
     }
+
+    public function customerLogin($email, $password)
+    {
+        $email = $this->fm->validation($email);
+        $password = $this->fm->validation($password);
+        $email = mysqli_real_escape_string($this->db->link, $email);
+        $password = mysqli_real_escape_string($this->db->link, $password);
+        if (empty($email) || empty($password)) {
+            $msg = "<span class='error'>Fields must not be empty!!</span>";
+            return $msg;
+        }
+        $password = md5($password);
+        $query = "SELECT * FROM tbl_customer WHERE email = '$email' AND password = '$password'";
+        $result = $this->db->select($query);
+        if ($result) {
+            $value = $result->fetch_assoc();
+            Session::set("cmrlogin", true);
+            Session::set("cmrId", $value['id']);
+            Session::set("cmrName", $value['name']);
+            header("Location: order.php");
+        } else {
+            $msg = "<span class='error'>Email or Password don't match!!</span>";
+            return $msg;
+        }
+
+    }
 }

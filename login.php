@@ -1,17 +1,27 @@
 <?php include 'inc/header.php'?>
-
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+    $customerlogin = $cmr->customerLogin($_POST['email'], $_POST['password']);
+}
+?>
 <div class="main">
 	<div class="content">
 		<div class="login_panel">
 			<h3>Existing Customers</h3>
-			<form action="hello" method="get" id="member">
-				<input name="Domain" type="text" value="Username" class="field" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}">
-				<input name="Domain" type="password" value="Password" class="field" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
-			</form>
-			<p class="note">Forgot your passoword click <a href="#">here</a></p>
+<?php
+if (isset($customerlogin)) {
+    echo $customerlogin;
+}
+?>
+			<form action="" method="post" >
+				<input name="email" type="text" placeholder="Email">
+				<input name="password" type="password" placeholder="Password">
+				<p class="note">Forgot your passoword click <a href="#">here</a></p>
 			<div class="buttons">
-				<div><button class="grey">Sign In</button></div>
+				<div><button class="grey" name="login">Sign In</button></div>
 			</div>
+			</form>
+
 		</div>
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
