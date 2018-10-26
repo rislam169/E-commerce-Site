@@ -82,4 +82,58 @@ class Customer
         }
 
     }
+
+    public function getCustomerData($id)
+    {
+        $query = "SELECT * FROM tbl_customer WHERE id = '$id'";
+        $result = $this->db->select($query);
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function customerUpdateInfo($data, $id)
+    {
+        $name = $this->fm->validation($data['name']);
+        $address = $this->fm->validation($data['address']);
+        $city = $this->fm->validation($data['city']);
+        $country = $this->fm->validation($data['country']);
+        $zip = $this->fm->validation($data['zip']);
+        $phone = $this->fm->validation($data['phone']);
+        $email = $this->fm->validation($data['email']);
+
+        $name = mysqli_real_escape_string($this->db->link, $name);
+        $address = mysqli_real_escape_string($this->db->link, $address);
+        $city = mysqli_real_escape_string($this->db->link, $city);
+        $country = mysqli_real_escape_string($this->db->link, $country);
+        $zip = mysqli_real_escape_string($this->db->link, $zip);
+        $phone = mysqli_real_escape_string($this->db->link, $phone);
+        $email = mysqli_real_escape_string($this->db->link, $email);
+
+        if (empty($name) || empty($address) || empty($city) || empty($country) || empty($zip) || empty($phone) || empty($email)) {
+            $msg = "<span class='error'>Fields must not be empty!!</span>";
+            return $msg;
+        }
+        $query = "UPDATE tbl_customer
+                    SET
+                    name = '$name',
+                    address = '$address',
+                    city = '$city',
+                    country = '$country',
+                    zip = '$zip',
+                    phone = '$phone',
+                    email = '$email'
+                    WHERE id = '$id'";
+        $updateinfo = $this->db->update($query);
+        if ($updateinfo) {
+            $msg = "<span class='success'>Data Updated Successfully!!</span>";
+            return $msg;
+        } else {
+            $msg = "<span class='error'>Data Not Updated!!</span>";
+            return $msg;
+        }
+
+    }
 }

@@ -91,4 +91,13 @@ class cart
         $checkcartproduct = $this->db->select($query);
         return $checkcartproduct;
     }
+
+    public function deleteCart()
+    {
+        $sId = session_id();
+        $query = "DELETE FROM tbl_cart WHERE sId = '$sId'";
+        $delcart = $this->db->delete($query);
+        return $delcart;
+
+    }
 }

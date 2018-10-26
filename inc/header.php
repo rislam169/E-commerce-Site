@@ -80,7 +80,22 @@ if ($cartcheck) {
                         </a>
                     </div>
                 </div>
-                <div class="login"><a href="login.php">Login</a></div>
+<?php
+if (isset($_GET['cid'])) {
+    $delcart = $ct->deleteCart();
+    Session::destroy();
+}
+?>
+<?php
+$cheklogin = Session::get("cmrlogin");
+if ($cheklogin == false) {
+    ?>
+    <div class="login"><a href="login.php">Login</a></div>
+<?php } else {
+    ?>
+    <div class="login"><a href="?cid=<?php echo Session::get("cmrId"); ?>">Logout</a></div>
+<?php }?>
+
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
@@ -90,7 +105,18 @@ if ($cartcheck) {
                 <li><a href="index.php">Home</a></li>
                 <li><a href="products.php">Products</a> </li>
                 <li><a href="topbrands.php">Top Brands</a></li>
+<?php
+$cartcheck = $ct->cartCheck();
+if ($cartcheck) {
+    ?>
                 <li><a href="cart.php">Cart</a></li>
+<?php }?>
+<?php
+if (Session::get("cmrlogin") == true) {
+    ?>
+                <li><a href="profile.php">Profile</a></li>
+<?php }
+?>
                 <li><a href="contact.php">Contact</a> </li>
                 <div class="clear"></div>
             </ul>
