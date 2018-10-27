@@ -110,6 +110,14 @@ $cartcheck = $ct->cartCheck();
 if ($cartcheck) {
     ?>
                 <li><a href="cart.php">Cart</a></li>
+                <li><a href="payment.php">Payment</a></li>
+<?php }?>
+<?php
+$cmrId = Session::get('cmrId');
+$ordercheck = $ct->orderCheck($cmrId);
+if ($ordercheck) {
+    ?>
+                <li><a href="orderdetails.php">Order</a></li>
 <?php }?>
 <?php
 if (Session::get("cmrlogin") == true) {

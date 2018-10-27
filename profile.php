@@ -6,7 +6,7 @@ if ($cheklogin == false) {
 }
 ?>
 <style>
-.tblone{width: 550px;margin: 0 auto;border: 1px solid #ddd;border-radius:50px;}
+.tblone{width: 550px;margin: 0 auto;border: 1px solid #ddd;}
 .tblone tr td{text-align:justify;}
 </style>
 <div class="main">

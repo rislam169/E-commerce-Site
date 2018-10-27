@@ -100,4 +100,65 @@ class cart
         return $delcart;
 
     }
+
+    public function orderProduct($cmrId)
+    {
+        $sId = session_id();
+        $query = "SELECT * FROM tbl_cart WHERE sId = '$sId'";
+        $getproduct = $this->db->select($query);
+        if ($getproduct) {
+            while ($result = $getproduct->fetch_assoc()) {
+                $productId = $result['productId'];
+                $productName = $result['productName'];
+                $quantity = $result['quantity'];
+                $price = $result['price'] * $quantity;
+                $price = $price + ($price * 0.1);
+                $image = $result['image'];
+
+                $query = "INSERT INTO tbl_order(cmrId, productId, productName, quantity, price, image) values('$cmrId','$productId','$productName','$quantity','$price','$image')";
+                $orderinsert = $this->db->insert($query);
+            }
+        }
+    }
+
+    public function getTotalPayable($cmrId)
+    {
+        $query = "SELECT price FROM tbl_order WHERE cmrId = '$cmrId' AND date = now()";
+        $getprice = $this->db->select($query);
+        if ($getprice) {
+            return $getprice;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function getOrderProduct($cmrId)
+    {
+        $query = "SELECT * FROM tbl_order WHERE cmrId = '$cmrId' ORDER BY productId DESC";
+        $getorder = $this->db->select($query);
+        if ($getorder) {
+            return $getorder;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function orderCheck($cmrId)
+    {
+        $query = "SELECT * FROM tbl_order WHERE cmrId = '$cmrId'";
+        $checkorder = $this->db->select($query);
+        return $checkorder;
+    }
+
+    // From admin 
+    public function getAllOrderProduct()
+    {
+        $query = "SELECT * FROM tbl_order WHERE ORDER BY date DESC";
+        $getorder = $this->db->select($query);
+        return $getorder;
+
+
+    }
 }

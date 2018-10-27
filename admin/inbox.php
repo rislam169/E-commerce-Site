@@ -3,56 +3,39 @@
         <div class="grid_10">
             <div class="box round first grid">
                 <h2>Inbox</h2>
-                <div class="block">        
+                <div class="block">
                     <table class="data display datatable" id="example">
 					<thead>
 						<tr>
-							<th>Serial No.</th>
-							<th>Message</th>
+							<th>Product Id</th>
+							<th>Product</th>
+							<th>Order Time</th>
+							<th>Quantity</th>
+							<th>Price</th>
+							<th>Address</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
+<?php
+$ct = new Cart();
+$fm = new Format();
+
+$getallorder = $ct->getAllOrderProduct();
+if ($getallorder) {
+    while ($result = $getallorder->fetch_assoc()) {
+
+        ?>
 						<tr class="odd gradeX">
 							<td>01</td>
 							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>02</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>03</td>
 							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>04</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-							<tr class="odd gradeX">
-							<td>05</td>
 							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>06</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>07</td>
 							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
+							<td>Internet</td>
+							<td><a href="">Shifted</a></td>
 						</tr>
-						<tr class="even gradeC">
-							<td>08</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
+<?php }}?>
 					</tbody>
 				</table>
                </div>

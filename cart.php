@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <?php
 if (!isset($_GET['id'])) {
-	echo "<meta http-equiv='refresh' content='0;URL=?id=live'/>";
+    echo "<meta http-equiv='refresh' content='0;URL=?id=live'/>";
 }
 
 ?>
@@ -97,7 +97,7 @@ if ($cartcheck) {
 					</tr>
 					<tr>
 						<th>Grand Total :</th>
-						<td>
+						<td>$
 <?php
 $vat = $sum * 0.1;
     $gtotal = $sum + $vat;
@@ -113,7 +113,7 @@ $vat = $sum * 0.1;
 					<a href="index.php"> <img src="images/shop.png" alt="" /></a>
 				</div>
 				<div class="shopright">
-					<a href="login.php"> <img src="images/check.png" alt="" /></a>
+					<a href="payment.php"> <img src="images/check.png" alt="" /></a>
 				</div>
 			</div>
 		</div>
