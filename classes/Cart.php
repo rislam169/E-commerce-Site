@@ -135,7 +135,7 @@ class cart
 
     public function getOrderProduct($cmrId)
     {
-        $query = "SELECT * FROM tbl_order WHERE cmrId = '$cmrId' ORDER BY productId DESC";
+        $query = "SELECT * FROM tbl_order WHERE cmrId = '$cmrId' ORDER BY date DESC";
         $getorder = $this->db->select($query);
         if ($getorder) {
             return $getorder;
@@ -152,13 +152,68 @@ class cart
         return $checkorder;
     }
 
-    // From admin 
+    // From admin
     public function getAllOrderProduct()
     {
-        $query = "SELECT * FROM tbl_order WHERE ORDER BY date DESC";
+        $query = "SELECT * FROM tbl_order WHERE status = 0 OR status = 1 ORDER BY id DESC";
         $getorder = $this->db->select($query);
         return $getorder;
 
+    }
+    // From admin
+    public function getAllConfirmedProduct()
+    {
+        $query = "SELECT * FROM tbl_order WHERE status = '2' ORDER BY id DESC";
+        $getorder = $this->db->select($query);
+        return $getorder;
 
+    }
+
+    public function shiftedProduct($orderId)
+    {
+        $query = "UPDATE tbl_order
+                SET status = 1
+                WHERE
+                id = '$orderId'";
+        $updatestatus = $this->db->update($query);
+        if ($updatestatus) {
+            $msg = "<span class='success'>Updated Successfully!!</span>";
+            return $msg;
+        } else {
+            $msg = "<span class='error'>Not Updated!!</span>";
+            return $msg;
+        }
+
+    }
+
+    public function confirmProduct($orderId)
+    {
+        $query = "UPDATE tbl_order
+                SET status = 2
+                WHERE
+                id = '$orderId'";
+        $confirmstatus = $this->db->update($query);
+        if ($confirmstatus) {
+            $msg = "<span class='success'>Thank you for being with us</span>";
+            return $msg;
+        } else {
+            $msg = "<span class='error'>Not Confirmed!!</span>";
+            return $msg;
+        }
+
+    }
+
+    public function deleteProduct($delproid)
+    {
+        $delproid = mysqli_real_escape_string($this->db->link, $delproid);
+        $query = "DELETE FROM tbl_order WHERE id = '$delproid'";
+        $delpro = $this->db->delete($query);
+        if ($delpro) {
+            $msg = "<span class='success'>Order Deleted Successfully!!</span>";
+            return $msg;
+        } else {
+            $msg = "<span class='error'>Order Not Deleted!!</span>";
+            return $msg;
+        }
     }
 }

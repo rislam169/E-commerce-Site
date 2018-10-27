@@ -75,7 +75,7 @@ class Customer
             Session::set("cmrlogin", true);
             Session::set("cmrId", $value['id']);
             Session::set("cmrName", $value['name']);
-            header("Location: order.php");
+            header("Location: index.php");
         } else {
             $msg = "<span class='error'>Email or Password don't match!!</span>";
             return $msg;

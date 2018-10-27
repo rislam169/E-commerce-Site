@@ -5,6 +5,12 @@ if ($cheklogin == false) {
     header("Location: login.php");
 }
 ?>
+<?php
+if (isset($_GET['confirmid'])) {
+    $orderId = $_GET['confirmid'];
+    $confirm = $ct->confirmProduct($orderId);
+}
+?>
 <style>
 .tblone tr td{text-align:justify;}
 </style>
@@ -13,6 +19,11 @@ if ($cheklogin == false) {
 		<div class="section group">
 			<div class="notfound">
                 <h2>Your order details</h2>
+<?php
+if (isset($confirm)) {
+    echo $confirm;
+}
+?>
 				<table class="tblone">
 					<tr>
 						<th>No</th>
@@ -45,14 +56,16 @@ if ($getorderproduct) {
 <?php
 if ($result['status'] == 0) {
             echo "Pending";
-        } else {
+        } elseif($result['status'] == 1) {
             echo "Shifted";
-        }
+        }else{
+			echo "Confirmed";
+		}
         ?>
 						</td>
 						<?php
 if ($result['status'] == 1) {?>
-            <td><a onclick="return confirm('Are you sure to delete!')" href="?delproid=<?php echo $result['id']; ?>">X</a></td>
+            <td><a href="?confirmid=<?php echo $result['id']; ?>">Confirm</a></td>
 <?php
 } else {
             ?>
