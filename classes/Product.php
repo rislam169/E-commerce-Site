@@ -246,4 +246,50 @@ class Product
         return $getproduct;
     }
 
+    public function addCompare($cmrId, $productId)
+    {
+        $cmrId = mysqli_real_escape_string($this->db->link, $cmrId);
+        $productId = mysqli_real_escape_string($this->db->link, $productId);
+
+        $cquery = "SELECT * FROM tbl_compare WHERE cmrId = '$cmrId' AND productId = '$productId'";
+        $check = $this->db->select($cquery);
+        if ($check) {
+            $msg = "<span class='error'>Already Added!!</span>";
+            return $msg;
+        }
+
+        $query = "SELECT * FROM tbl_product WHERE productId = '$productId'";
+        $getinfo = $this->db->select($query);
+        if ($getinfo) {
+            $result = $getinfo->fetch_assoc();
+            $productName = $result['productName'];
+            $price = $result['price'];
+            $image = $result['image'];
+        }
+
+        $query = "INSERT INTO tbl_compare(cmrId, productId, productName, price, image) values('$cmrId', '$productId', '$productName', '$price', '$image')";
+        $insertcompare = $this->db->insert($query);
+        if ($insertcompare) {
+            $msg = "<span class='success'>Added! Check compare page</span>";
+            return $msg;
+        } else {
+            $msg = "<span class='success'>Not Added!!</span>";
+            return $msg;
+        }
+    }
+
+    public function getCompareProduct($cmrId)
+    {
+        $query = "SELECT * FROM tbl_compare WHERE cmrId = '$cmrId' ORDER BY id DESC";
+        $getproduct = $this->db->select($query);
+        return $getproduct;
+    }
+
+    public function deleteCompareData($cmrId)
+    {
+        $sId = session_id();
+        $query = "DELETE FROM tbl_compare WHERE cmrId = '$cmrId'";
+        $deldata = $this->db->delete($query);
+    }
+
 }
