@@ -292,4 +292,53 @@ class Product
         $deldata = $this->db->delete($query);
     }
 
+    public function addWishList($cmrId, $productId)
+    {
+        $cmrId = mysqli_real_escape_string($this->db->link, $cmrId);
+        $productId = mysqli_real_escape_string($this->db->link, $productId);
+
+        $cquery = "SELECT * FROM tbl_wishlist WHERE cmrId = '$cmrId' AND productId = '$productId'";
+        $check = $this->db->select($cquery);
+        if ($check) {
+            $msg = "<span class='error'>Already Added!!</span>";
+            return $msg;
+        }
+
+        $query = "SELECT * FROM tbl_product WHERE productId = '$productId'";
+        $getinfo = $this->db->select($query);
+        if ($getinfo) {
+            $result = $getinfo->fetch_assoc();
+            $productName = $result['productName'];
+            $price = $result['price'];
+            $image = $result['image'];
+        }
+
+        $query = "INSERT INTO tbl_wishlist(cmrId, productId, productName, price, image) values('$cmrId', '$productId', '$productName', '$price', '$image')";
+        $insertwishlist = $this->db->insert($query);
+        if ($insertwishlist) {
+            $msg = "<span class='success'>Added! Check WishList Page</span>";
+            return $msg;
+        } else {
+            $msg = "<span class='success'>Not Added!!</span>";
+            return $msg;
+        }
+    }
+
+    public function getWishList($cmrId){
+        $query = "SELECT * FROM tbl_wishlist WHERE cmrId = '$cmrId' ORDER BY id DESC";
+        $getwishlist = $this->db->select($query);
+        return $getwishlist;
+    }
+
+    public function removeWishList($cmrId, $delwishid){
+        $query = "DELETE FROM tbl_wishlist WHERE productId = '$delwishid' AND cmrId = '$cmrId'";
+        $deldata = $this->db->delete($query);
+        if($deldata){
+            $msg = "<span class='success'>Product deleted from wishlist!</span>";
+            return $msg;
+        }else{
+            return false;
+        }
+    }
+
 }

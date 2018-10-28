@@ -132,6 +132,12 @@ if ($getcompareproduct) {
     ?>
                 <li><a href="compare.php">Compare</a> </li>
 <?php }?>
+<?php
+$checkwishlist = $pd->getWishList($cmrId);
+if ($checkwishlist) {
+    ?>
+                <li><a href="wishlist.php">WishList</a> </li>
+<?php }?>
                 <li><a href="contact.php">Contact</a> </li>
                 <div class="clear"></div>
             </ul>

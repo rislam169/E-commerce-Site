@@ -1860,6 +1860,7 @@ button.grey:hover,
 .tblone td {
 	padding: 10px;
 	text-align: center;
+	vertical-align: middle;
 }
 
 table.tblone tr:nth-child(2n+1) {

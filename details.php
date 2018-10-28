@@ -12,9 +12,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['quantity'])) {
 ?>
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['procmprid'])) {
-    $cmrId = Session::get('cmrId');
     $productId = $_POST['procmprid'];
     $insertcompare = $pd->addCompare($cmrId, $productId);
+}
+?>
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addwish'])) {
+    $productId = $_POST['procmprid'];
+    $insertcompare = $pd->addWishList($cmrId, $productId);
 }
 ?>
 

@@ -1,22 +1,31 @@
 <?php include 'inc/header.php'?>
 <?php
-$cheklogin = Session::get("cmrlogin");
-if ($cheklogin == false) {
-    header("Location: index.php");
+	$cheklogin = Session::get("cmrlogin");
+	if($cheklogin == false){
+		header("Location: index.php");
+	}
+?>
+<?php
+if (isset($_GET['delwishid'])) {
+    $delwishid = $_GET['delwishid'];
+    $deletewish = $pd->removeWishList($cmrId, $delwishid);
 }
 ?>
 <style>
 .shopcenter{text-align:center;}
-.tblone tr td{text-align:justify;}
 .tblone tr td img{height: 70px;width: 100px;}
 .cartpage h2 {width: 100%;}
-
 </style>
 <div class="main">
 	<div class="content">
 		<div class="cartoption">
 			<div class="cartpage">
-				<h2>Product Compare</h2>
+				<h2>Wish List</h2>
+<?php
+if (isset($deletewish)) {
+    echo $deletewish;
+}
+?>
 				<table class="tblone">
 					<tr>
 						<th>SL</th>
@@ -26,11 +35,10 @@ if ($cheklogin == false) {
 						<th>Action</th>
 					</tr>
 <?php
-$cmrId = Session::get('cmrId');
-$getcompareproduct = $pd->getCompareProduct($cmrId);
-if ($getcompareproduct) {
+$getwishlist = $pd->getWishList($cmrId);
+if ($getwishlist) {
     $i = 0;
-    while ($result = $getcompareproduct->fetch_assoc()) {
+    while ($result = $getwishlist->fetch_assoc()) {
         $i++;
         ?>
 					<tr>
@@ -38,7 +46,11 @@ if ($getcompareproduct) {
 						<td><?php echo $result['productName']; ?></td>
 						<td>$<?php echo $result['price']; ?></td>
 						<td><img src="admin/<?php echo $result['image']; ?>" alt="" /></td>
-						<td><span><a href="details.php?proid=<?php echo $result['productId']; ?>" class="details">Details</a></span></td>
+						<td>
+                            <span><a href="details.php?proid=<?php echo $result['productId']; ?>" class="details">Buy Now</a></span>
+                            ||
+                            <span><a href="?delwishid=<?php echo $result['productId']; ?>" class="details">Remove</a></span>
+                        </td>
 					</tr>
 <?php }}?>
 				</table>
